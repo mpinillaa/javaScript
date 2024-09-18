@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +54,64 @@ let x = document.getElementById("n1").value;
 
  }
   function ejercicio3(){
+    a = document.getElementById("n2").value;
+    b = document.getElementById("n3").value;
+    op = document.getElementById("oper").value;
+
+    errores = false;
+
+    if(a=="" || b=="" || oper == "") {
+        alert("No puede haber casillas vacías,subnormal");
+        errores=true;
+    }
+
+    if(a != Number(a)){  //tmb se puede con n2
+        alert("subnormal1");
+        errores=true;
+    }
+
+    if(b != Number(b)){   //tmb se puede con n3
+        alert("subnormal2");
+        errores=true;
+    }
+
+    if(op != "+" && oper != "-" && op != "*" && op != "/" ){  //tmb se puede oper
+          alert("no se acepta esta operacion");
+          errores=true;
+        }
+
+        x = "";   //Porque no se pone let ?
+
+        if(!errores){
+            switch(op){
+
+                case "+": 
+                x = Number(a) + Number(b);
+
+                break;
+
+                case "-":
+                     x = Number(a) - Number(b);
+
+                break;
+
+                case "*": 
+                x = Number(a) * Number(b);
+
+                break;
+
+                case "/": 
+                x = Number(a) / Number(b);
+
+                break;
+
+                default:
+                break;
+            }
+        }
+
+        document.getElementById("res").value = x;
+
  }
  </script>
 
