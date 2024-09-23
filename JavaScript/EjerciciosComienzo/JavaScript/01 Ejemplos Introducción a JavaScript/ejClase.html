@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+    <div1 id="demo1">
+   
+    <p> numero 1:<input type="text" value="" id="texto1"></p>
+    </div1>
+
+    <div2 id="demo2">
+   
+    <p> numero 2:<input type="text" value="" id="texto2"></p>
+    </div2>
+ <div id="button">
+     <!-- <input type="button" value="sumar" onclick="alert('Has tocado sumar')">
+    <input type="button" value="restar" onclick="alert('Has tocado restar')">
+    -->
+    <input type="button" value="sumar" onclick="sumar()">
+    <input type="button" value="restar" onclick="restar()">
+
+</div>
+<div id="resultado"></div>
+<script type="text/javascript">
+function sumar(){
+    document.getElementById("resultado").innerHTML="la suma es "+ (Number(document.getElementById("texto1").value)+ Number(document.getElementById("texto2").value));
+
+}
+
+</script>
+</body>
+</html>
