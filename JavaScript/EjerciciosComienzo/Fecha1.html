@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="ejercicio1()">Ejercicio 1</button><br>
+    <input type="date" id="fechaIn">
+    <button onclick="ejercicio2()">Ejercicio 2</button><br>
+    <input type="date" id="fechaInput">
+    <button onclick="ejercicio3()">Ejercicio 3</button><br>
+    <input type="text" onclick="startTime()">
+    <button onclick="ejercicio4()">Ejercicio 4</button><br>
+    <input type="text" id="dPlus">
+    <button onclick="ejercicio5()">Ejercicio 5</button><br>
+
+    <script>
+    dias = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+
+let timeStart;
+
+
+        function ejercicio1(){
+            let dia = prompt("Apunta el dia de tu cumplaños")
+            let Mes = prompt("apunta el mes de tu cumpleañaso")
+
+            let cumple = new Date (2024, Mes -1 , dia);
+
+            alert("Su cumple en 2024 cae en "+ dias[cumple.getDay()]);
+        }
+
+
+        function ejercicio2(){
+            let fechaInicio = new Date("2022-08-23");
+            let fechaHoy = new Date();
+            let diferencia = fechaHoy - fechaInicio;
+
+            let milisegundosPorDia = 1000 * 60 * 60 * 24;
+            let diasPasados = Math.floor(diferencia / milisegundosPorDia);
+
+            alert("han paqsado" + diasPasados + "desde el 23/08/2024")
+        }
+
+        function ejercicio3(){
+
+            
+
+        }
+
+</script>
+</body>
+</html>
