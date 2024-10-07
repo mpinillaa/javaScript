@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
 <br><br>
 Elige un tamaño 
 <select id="idtamaño" >
-		<option value=" "> Selecciona </option>
+		<option value=" 0"> Selecciona </option>
 		<option value=" 2"> Pequeña </option>
 		<option value=" 3"> Mediana </option>
 		<option value=" 4"> Grande </option>
@@ -56,21 +56,13 @@ Elige un tamaño
 
 
 <script>
-    let precio = 0;
+   
     function calcular(){
-        if(idtamaño.value="Pequeña")
-            precio = 2;
-        
-        else if(idtamaño.value="Mediana")
-            precio = 3;
-
-        else if(idtamaño.value="Grande")
-            precio = 4;
-        
-        else if(idtamaño.value="Gigante")
-            precio = 5;
-            else
-                alert("subnormal");
+       let total=0;
+       let select = Number(document.getElementById("idramaño").value);
+       let chk1 = document.getElementById("idpatatas");
+       let chk2 = document.getElementById("idrefresco");
+       var boton = document.getElementById("")
             
         }
 
