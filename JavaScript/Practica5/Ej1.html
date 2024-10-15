@@ -40,31 +40,31 @@ f. Es una página web que comienza con www., acaba con .com o .org o .es y
 contiene en su nombre “poker”, “porno” o “juego”
     /^www[.][poker,porno,juego]{1}[.com,.org,.es]{1}$/
 g. Es una hora que contiene hh:mm:ss (por ej 12:44:21)
-    /^[0-24]{1}:[0-59]{1}:[0-59]{1}$/
-h. Es una fecha dd/mm/aaaa
-    /^[0-28,30,31]{1}/[1-12]{1}/[2000-2024]{1}$/
-i. Contraseña de exactamente 6 dígitos
     
-j. Contraseña de 6 caracteres con solo dígitos o letras minúsculas
+h. Es una fecha dd/mm/aaaa
 
+i. Contraseña de exactamente 6 dígitos
+    /^\d{6}$/
+j. Contraseña de 6 caracteres con solo dígitos o letras minúsculas
+    /^[a-z|0-9]{6}$/
 k. Contraseña de entre 6 y 8 caracteres entre los que hay al menos una letra 
 minúscula y un dígito
-                            
+    /^(.*[a-z])(.*\d)[a-zA-Z0-9]{6,8}$/               
                             
 3. OPCIONAL :Implementar las siguientes expresiones regulares:
                             
 a. Solo tienen ‘a’ o solo tienen ‘b’
-                            
+    /^(a+|b+)$/
 b. Solo tengan parejas de ‘a’ y/o parejas de ‘b’
-                            
+    /^((aa)|(bb))*$/                        
 c. Contienen la cadena ‘aba’ o la cadena ‘bab’
-                            
+    /(aba|bab)/                
 d. Contienen la cadena ‘ba’ al menos dos veces seguidas
-                            
+    /(ba){2}/                     
 e. No tienen más de tres ‘a’ o tres ‘b’ seguidas
-                            
+    /a{4,}|b{4,}/                        
 f. Alternan la ‘a’ y la ‘b’ sin repetirse
-
+    /^(ab|ba)+$/
 
 </body>
 </html>
