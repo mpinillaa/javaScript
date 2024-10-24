@@ -38,10 +38,55 @@
 		}
 	 
 	 function validarFecha (e){ 
-		let regex = /^\d{4}-[1[0-9]]-([012]\d|3[01])$/g
+		var fechaActual = new Date();
+		var fechaNacimiento = new Date(e.value);
+
+		let regex = /^\d{4}-([0-9]|1[0-2])-([012]\d|3[01])$/g
+		if (regex.test(e.value)){
+			e.style.backgroundColor="white";
+
+			if (fechaNacimiento > fechaActual){
+			alert("la fecha no puede ser mayor a la actual");
+			console.log("hola");
+			return false;
+		}
+
+			return true
+
+		}else{
+			alert("subnormal")
+			e.value="";  // te lo deja en blanco
+			e.focus();  // te deja volver a escribir 
+			return false;
+		}
+
+		
+		
+		
 	 }
 	 function calcularEdad (e){ 
-	
+		var fechaActual = new Date();
+		var fechaNacimiento = new Date(e.value); // el e.value es para que se guarde la variable
+
+		if (validarFecha(e)){
+			var edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+
+			var añoActual = fechaActual.getFullYear();
+			var mesActual = fechaActual.getMonth();
+			var diaActual = fechaActual.getDay();
+
+			var añoNacimiento = fechaNacimiento.getFullYear();
+			var mesNacimiento = fechaNacimiento.getMonth();
+			var diaNacimiento = fechaNacimiento.getDay();
+
+			if ((mesActual < mesNacimiento) || (mesActual==mesNacimiento) && (diaActual < diaNacimiento) ){
+				años--;  // por si aun no ha cumplido años restarle uno
+			}
+		}
+
+
+	//	document.getElementById("edad").value = edad;  //edad.value=años
+
 	}
 	 function validarDNI (e){ 
 	
@@ -67,7 +112,7 @@
 		onchange=" validarNomApel(this)">
 	<br><br>Fecha Nacimiento  <input type="text" id=fecnac size=13 placeholder="aaaa-mm-dd"
 		onfocus=" cambiarColor(this,'beige')"
-		onchange=" "
+		onchange=" validarFecha(this)"
 		>&nbsp;&nbsp; Edad <input type="text" size=4 id="edad" readonly>
 		 </fieldset>
 	 <br>
