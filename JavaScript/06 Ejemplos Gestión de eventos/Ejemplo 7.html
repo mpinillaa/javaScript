@@ -8,7 +8,8 @@ function muestraInformacion(evento) {
  mensaje = mensaje+ "Tipo de evento: " + evento.type + "<br>"; 
  mensaje = mensaje+ "Propiedad keyCode: " + evento.keyCode + "<br>";
  mensaje = mensaje+ "Propiedad charCode: " + evento.charCode + "<br>" ;
- mensaje = mensaje+ "Caracter pulsado: " + String.fromCharCode(evento.charCode)+ "<br><br>";
+ mensaje = mensaje+ "Caracter pulsado: " + String.fromCharCode(evento.charCode)+ "<br>";
+  mensaje = mensaje+ "Propiedad key: " + evento.key + "<br><br>" ;
  document.getElementById("idmen").innerHTML=mensaje;
 
 }

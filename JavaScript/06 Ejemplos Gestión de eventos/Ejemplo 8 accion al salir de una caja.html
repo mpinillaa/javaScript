@@ -18,8 +18,10 @@ function digito (evento,e){
 if (evento.keyCode == 13)
      validar(e);
 else{
-	let x = String.fromCharCode(evento.charCode);
-	if (x < '0' || x > '9'){
+	let x = evento.key;
+	if (!/\d/.test(x))
+	  {
+		e.style.backgroundColor="#F5B7B1";
 		alert("error");
 		}
 	}
