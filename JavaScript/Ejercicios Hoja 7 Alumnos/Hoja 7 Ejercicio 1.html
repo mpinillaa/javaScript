@@ -47,21 +47,78 @@ function mostrar(){
    document.getElementById("div1").innerHTML=codigo;
 }
 
+
+function cargar(){
+const fil=6;
+const col=4;
+const tabla =new Array(fil);
+for (let i=0;i<fil;i++)
+	tabla[i]=new Array(col);
+ 
+let n=1;
+for (let i=0;i<fil;i++)
+	for (let j=0;j<col;j++){
+		tabla[i][j]=n;
+		n++;
+		} 
+let codigo='<table border=1> ';
+for (let i=0;i<fil;i++){
+	codigo+='<tr> ';
+	for (let j=0;j<col;j++){
+		codigo+='<td>'+tabla[i][j]+'</td>' ;
+		}
+	codigo+='</tr>';
+	}
+codigo+='</table>';
+document.getElementById("div1").innerHTML=codigo;
+}
+
+function numRandom() {
+          return Math.floor(Math.random() * 20);
+        }
+
+function añadirPorDelante(){
+	array.unshift(numRandom())
+	mostrar();
+}
+
+function añadirPorDetras(){
+	array.push(numRandom());
+	mostrar();
+}
+
+function buscarArray() {
+          input = Number(prompt("Qué quieres gayyy?"));
+          if (array.indexOf(input) != -1) {
+            alert("Se ha encontrado");
+          } else {
+            alert("No existe subnormal");
+          }
+		}
+
 </script>
 </head>
 <body>
 
 <h3>PROBANDO ARRAYS UNIDIMENSIONALES</h3>
 <br>
-<input type="button" value="Añadir por delante" onclick="">
-<input type="button" value="Añadir por detrás" onclick="">
-<input type="button" value="Buscar un elemento" onclick="">
+<input type="button" value="Añadir por delante" onclick="añadirPorDelante()">
+<input type="button" value="Añadir por detrás" onclick="añadirPorDetras()">
+<input type="button" value="Buscar un elemento" onclick="buscarArray()">
 <input type="button" value="Borrar primer elemento" onclick="">
 <input type="button" value="Borrar último elemento" onclick="">
 <input type="button" value="Ordenar creciente" onclick="">
 <input type="button" value="Ordenar decreciente" onclick="">
 <br><br><br>
 <div id="div1">
+
+	<body onload="cargar()">
+		<div>
+		PROBANDO ARRAYS BIDIMENSIONALES
+		</div>
+		<div id="div1">
+		</div>
+		</body>
 
 </div>
 </body>
