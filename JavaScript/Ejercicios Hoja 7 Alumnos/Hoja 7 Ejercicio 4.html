@@ -42,5 +42,42 @@ td{
 </body>
 <script type="text/JavaScript">
 
+window.onload=function cargar(){
+const fil=4;
+const col=4;
+const tabla =new Array(fil);
+for (let i=0;i<fil;i++)
+	tabla[i]=new Array(col);
+ 
+let n=0;
+for (let i=0;i<fil;i++)
+	for (j=0;j<col;j++){
+		n=Math.floor(Math.random()*9)+1;
+		tabla[i][j]=n;
+		n++;
+		} 
+let codigo='<table border=1> ';
+for (let i=0;i<fil;i++){
+	codigo+='<tr> ';
+	for (let j=0;j<col;j++){
+		codigo+='<td><label name=item'+tabla[i][j]+'>**</label></td>' ;
+		}
+	codigo+='</tr>';
+	}
+codigo+='</table>';
+document.getElementById("div1").innerHTML=codigo;
+
+function buscar(num) {
+	for (let i=0;i<fil;i++)
+		for(let j=0;j<col;j++)
+			if m[i][j]==buscar() || p[i][j]=='**'{
+				p[i][j]=buscar();
+				
+				
+			}
+}
+
+}
+
 </script>
 </html>
