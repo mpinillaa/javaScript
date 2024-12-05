@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CONTROL FORMULARIOS</title>
+        <link rel="stylesheet" href="Examen.css">
+    
+    
+    <style>
+        span {
+            display:none;
+        }
+        
+        #precio {color: #222;
+                font-weight: 600;
+                line-height: 1.3;
+                }
+        
+    </style>
+    <script>
+	// Aquí pon las variables globales que necesites si las necesitas
+	
+    window.onload=function cargarFecha(){
+         // para que al iniciar el formulario la fecha de entrada se cargue con el día 
+         // de mañana
+         let fecha=new Date()
+         dia=fecha.getDate()+1;
+         mes=fecha.getMonth()+1;
+         año=Number(fecha.getFullYear())-2000;
+         document.getElementById("fent").value=	dia+'//'+mes+'//'+año;	 
+
+        imagenes=["playa1.PNG", "playa2.PNG", "playa3.PNG", "playa4.PNG"]
+        a=window.setInterval(function(){
+            document.getElementById("imagen").src=imagenes[cont];
+            cont++;
+            if(cont==4)
+                cont=0;
+        }, 3000);
+ 
+    }
+    function colorear(evento, e){
+        // recuerda que quiero que recibas el evento y el elemento
+        if(evento.type=="mouseover")
+            e.style.backgroundColor="orange";
+        else
+            e.style.backgroundColor="white";
+    }
+
+    function calcular(){
+	   // primero valida y luego calcula
+       //validar fechas
+
+       entrada=document.getElementById("fent").value
+       salida=document.getElementById("fsal").value
+
+        reg= /^(0[1-9]|[12]\d|3[01])\/\/(0[1-9]|1[012])\/\/2[45]$/
+        if(!reg.test(entrada)){
+            document.getElementById("fent").focus();
+            return alert("Fecha entrada mal introducida");
+        }
+        if(!reg.test(salida)){
+            document.getElementById("fsal").focus();
+            return alert("Fecha salida mal introducida");
+        }
+
+        entrada=entrada.split('//');
+        salida=salida.split('//');
+
+	    fechaE=new Date("20"+entrada[2]+'/'+entrada[1]+'/'+entrada[0]);
+        fechaS=new Date("20"+salida[2]+'/'+salida[1]+'/'+salida[0]);
+
+        console.log(fechaE);
+        console.log(fechaS);
+
+        if(fechaE < new Date()){
+            document.getElementById("fent").focus();
+            return alert("Ese dia ya ha pasado");
+        }
+        if(fechaE>=fechaS){
+            document.getElementById("fsal").focus();
+            return alert("No puedes salir antes de entrar");
+        }
+            
+        noches=fechaS-fechaE;
+        noches=noches/3600000;
+        noches=noches/24;
+        console.log(noches)
+        
+        document.getElementById("noches").value=noches
+
+        //validar checkbox
+
+        validar=false;
+
+        precio=0;
+        estudio=document.getElementById("check1")
+        una=document.getElementById("check2")
+        dos=document.getElementById("check3");
+
+        if(estudio.checked){
+            validar=true;
+            precio+=Number(estudio.value);
+        }
+        if(una.checked){
+            validar=true;
+            precio+=Number(una.value);
+        }
+        if(dos.checked){
+            validar=true;
+            precio+=Number(dos.value);
+        }
+
+        if(!validar)
+            return alert("no se ha escogido ninguna opcion");
+        
+        console.log("precio antes de descuento"+precio);
+        pa=precio
+
+        //validar descuento
+
+        validar=false;
+
+        descuento=document.getElementById("sel")
+        if(descuento.value != "0"){
+            validar=comprobarSocio()
+            precio=precio*Number(descuento.value);
+        }
+        else
+            validar=true;
+
+        if(!validar)
+            return
+        
+        
+        console.log("precio despues de descuento"+precio);
+        pd=precio;
+
+        //validar seguro
+
+        seguro=document.getElementsByName("c");
+
+        if(seguro[0].checked)
+            precio+=30;
+
+        console.log("precio despues de seguro"+precio);
+        ps=precio
+
+        //validar telefono
+
+        telefono=document.getElementById("telefonos").value;
+        correo=document.getElementById("correo").value;
+
+        if(telefono!=""){
+            reg=/^[67]\d{8}(\([67]\d{8}\))?$/
+            if(!telefono.match(reg)){
+                document.getElementById("telefonos").focus();
+                return alert("telefono mal introducido");
+            }
+        }
+        
+        if(telefono=="" && correo==""){
+            validar=window.confirm('Seguro que no quiere que le contactemos?')
+            if(!validar){
+                document.getElementById("telefonos").focus();
+                return alert("Necesita poner o el correo o el telefono")
+            }
+            else
+            document.getElementById("telefonos").focus();
+        }
+
+        pa*=noches;
+        pd*=noches;
+
+        document.getElementById("precio").innerHTML="<p>Precio total="+pa+"</p>";
+
+        if(descuento.value!=0)
+            document.getElementById("precio").innerHTML+="<p>Aplicando el descuento="+pd+"</p>";
+        else
+            document.getElementById("precio").innerHTML+="<p>Aplicando el descuento=0</p>";
+
+        if(seguro[0].checked)
+            document.getElementById("precio").innerHTML+="<p>incluyendo el seguro de cancelacion="+(pd+30)+"</p>";
+        else
+            document.getElementById("precio").innerHTML+="<p>incluyendo el seguro de cancelacion=0</p>";
+        
+    }
+
+
+	function comprobarSocio(){
+		// te puede venir bien para ver si la tecla pulsada corresponde a una de las 
+		// posibles en el código de socio y aquí abrir la ventana de código erroneo
+        codigo=document.getElementById('socio').value;
+
+        reg= /^[13579ABC]{3,9}$/
+
+        if(!codigo.match(reg)){
+
+            document.getElementById('socio').focus();
+            alert('El codigo de socio no es valido');
+            return false
+
+        }
+        return true;
+        
+	}
+    
+    parada=false;
+    function parar(){
+
+        if(!parada){
+            window.clearInterval();
+            parada=true;
+        }
+        else{
+            ventana=window.open("https://booking.com","_self");
+        }
+
+
+    }
+
+    function comprobarSocio2(e){
+        caracteres=/[13579ABC]/;
+            if(e.key!=13){
+                if(!caracteres.test(e.key)){
+                    ventana=window.open("", 'nueva', 'width=300, height=200, top=300, left=300');
+                    ventana.document.write('Caracter no permitido: '+e.key);
+                    ventana.document.write('<br><input type="button" value="Cerrar" onclick="window.close()">');
+                }
+            }
+    }
+
+    </script>
+    </head>
+    <body>
+
+        <h1>APARTAMENTOS SOLYPLAYA</h1>
+        <img src="playa1.PNG" id="imagen" width="300" height="200" onclick="parar()">
+        <h2>Solicite información para su reserva</h2>
+        
+        Día Entrada&nbsp <input type="text" id="fent" size="8" onmouseover="colorear(event, this)" onmouseleave="colorear(event, this)"> 
+        <br>        
+        Día Salida&nbsp&nbsp&nbsp  <input type="text" id="fsal" size="8" onmouseover="colorear(event, this)" onmouseleave="colorear(event, this)"> 
+        
+        Noches:&nbsp&nbsp <input type="text" id="noches" size="2"readonly><br> <br> 
+        <div>
+        Actualmente nuestros precios por noche son (Iva incluido): <br>
+        4
+        <input type="checkbox" id="check1"  value="120"> Estudio (2 plazas) 120€   
+        <br>
+        <input type="checkbox" id="check2" value="200"> 1 habitación y salón (4 plazas) 200€     
+        <br>
+        <input type="checkbox" id="check3"  value="250"> 2 habitaciones y salón (6 plazas) 250€     
+        <br><br>
+        Pudiendo aplicar uno de nuestros descuentos<br> 
+			<select id="sel">
+                <option value="0">Ninguno</option>
+                <option value="0.95">Socio SOLYPLAYA Plata (5%)</option>
+                <option value="0.9">Socio SOLYPLAYA Oro (10%)</option>
+                <option value="0.8">Socio SOLYPLAYA Premium (20%)</option>
+            </select>
+            Código Socio <input type="text" id="socio" onkeypress="comprobarSocio2(event)"> 
+        <br>
+        Con seguro de cancelación <input type="radio" name="c" checked> Sí<input type="radio" name="c">No	
+        <br><br>
+        Si nos deja un teléfono (o dos) nosotros le llamamos
+        <input type="text" id="telefonos" placeholder="999999999 (999999999)"> 
+        <br>
+        O su correo  
+        <input type="text" id="correo" size="50"> 
+       </div> 
+        <br>
+        <input type="button" value="CALCULAR PRECIO" onclick="calcular()"> <br><br>
+         
+        <div id="precio">Le mostraremos el precio</div>
+        
+
+    </body>
+</html>

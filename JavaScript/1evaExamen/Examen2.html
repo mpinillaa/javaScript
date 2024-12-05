@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Recuperación FORMULARIOS</title>
+    <link rel="stylesheet" href="main.css">
+    <style type="text/css">
+        /*#otro {
+            display: none;
+        }*/
+    </style>
+</head>
+<script>
+    function calcular() {
+        const programacion=document.getElementById("prog");
+        const mysql=document.getElementById("sql");
+        const diseño=document.getElementById("web");
+        const selprog = Number(document.getElementById("selprog").value);
+        const selweb = Number(document.getElementById("selweb").value);
+        let semanas=0;
+        let suma=0;
+        if (programacion.checked == 0 && mysql.checked == 0 && diseño.checked == 0){
+            alert("No se ha seleccionado ningun curso de certificado");
+            return;
+        } 
+        if (programacion.checked){
+            if (selprog === 0){
+                alert("No has elegido una de programacion");
+            return;
+            }
+            semanas+=3;
+            suma+=selprog;
+        }
+        if (diseño.checked){
+            if (selweb === 0){
+                alert("No has elegido una de diseño web");
+            return;
+            }
+            semanas+=2;
+            suma+=selweb;
+        }
+        if (mysql.checked){
+            semanas+= 3;
+            suma += Number(mysql.value); 
+        }
+        
+        const fecha= document.getElementById("fec").value;
+        const fechaSeleccionada = new Date (fecha);
+
+        const fecha_hoy = new Date();
+
+        const fechaLimite = new Date(fecha_hoy);
+        fechaLimite.setDate(fechaLimite.getDate() + 30);
+
+        if (fechaSeleccionada < fecha_hoy || fechaSeleccionada > fechaLimite) {
+            alert("Error con la fecha. Debe estar entre hoy y 30 días en adelante.");
+            return;
+        }
+        
+        document.getElementById("precio").value=suma + "€";
+
+        document.getElementById("duracion").value= semanas +" semanas";
+    }
+    function comprobar_tfno(e) {
+        const regexTel=/^\(\d{3}\)-\d{3}-\d{3}$/;
+        const tel=document.getElementById("telefono");
+        if (!tel.value.match(regexTel)){
+            e.style.background = '#FADBD8';
+            tel.value="Telefono erroneo";
+        } else{
+            alert("Telefono bien escrito");
+        }
+    }
+    function comprobar_codigo(e) {
+        const regex = /^[BCDFGHJKLMNPQRSTVWXYZ]{3}\d{2,5}$/;
+        const codigo=document.getElementById("codigo");
+        if (!codigo.value.match(regex)){
+            e.style.background = '#FADBD8';
+            codigo.value="Codigo erroneo";
+        } else{
+            alert("Contraseña bien escrita");
+        }
+    }
+    function cambiarColor(e) {
+			e.style.background = '#FDEBD0';
+		}
+
+</script>
+
+<body>
+    <h1>LEARNING ABACO</h1>
+    Esta es nuestra selección de CURSOS Certificados
+    <br><br>
+    <input type="checkbox" id="prog">PROGRAMACION
+    <select id="selprog">
+        <option value="0">Selecciona</option>
+        <option value="200">Java</option>
+        <option value="80">PHP</option>
+        <option value="120">Python</option>
+        <option value="90">JavaScript</option>
+    </select>
+    <br><br>
+    <input type="checkbox" id="sql" value="100">MySQL
+    <br><br>
+    <input type="checkbox" id="web">DISEÑO WEB
+    <select id="selweb">
+        <option value="0">Selecciona</option>
+        <option value="80">HTML</option>
+        <option value="90">CSS</option>
+        <option value="60">Bootstrap</option>
+    </select>
+    <br>
+    <br> Teclee la fecha en la que quiere comenzar sus curso
+    <br> (dd/mm/aaaa entre el día de hoy y 30 días, de lunes a viernes)
+    <input type="date" id="fec" size=10 placeholder="dd/mm/aaaa" onchange="calcular()">
+    <hr>
+    <input type="button" value="Mostrar Precio y Duración" onclick="calcular()">
+    <br> <br>PRECIO <input type="text" id="precio" size=10 readonly>
+    <br> <br>DURACIÓN <input type="text" id="duracion" size=10 readonly>
+    </div>
+    <hr>
+    <div id="otro">
+        Si dispones de un código descuento indícalo: <input type="text" id="codigo" size=10 onfocus="cambiarColor(this)" onchange="comprobar_codigo(this)">
+        Teléfono de contacto: <input type="text" id="telefono" size=12 placeholder="(XXX)-XXX-XXX" onfocus="cambiarColor(this)" onchange="comprobar_tfno(this)">
+    </div>
+</body>
+
+</html>
